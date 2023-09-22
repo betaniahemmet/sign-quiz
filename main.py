@@ -1,6 +1,8 @@
 import os
 import random
 import tkinter as tk
+from tkinter import ttk
+from ttkthemes import ThemedTk
 from PIL import Image, ImageTk
 import cv2
 from pathlib import Path
@@ -12,7 +14,7 @@ video_folder = Path("./mov")
 video_files = [file.name for file in video_folder.iterdir() if file.is_file()]
 
 # Initialize the Tkinter window
-root = tk.Tk()
+root = ThemedTk(theme='radiance')
 root.title("Gissa tecknet!")
 
 # Create a canvas to display the video
@@ -20,7 +22,7 @@ canvas = tk.Canvas(root, width=640, height=480)
 canvas.pack()
 
 # Create a label to display the question
-question_label = tk.Label(root, text="Vilket tecken visas i filmen?")
+question_label = ttk.Label(root, text="Vilket tecken visas i filmen?")
 question_label.pack()
 
 # Create a list of four buttons for user choices
@@ -98,14 +100,13 @@ def new_question():
 
 # Create buttons for choices
 for _ in range(4):
-    button = tk.Button(
-        root, text="", command=lambda: None, state=tk.DISABLED
-    )  # Initially disable choice buttons
+    button = ttk.Button(
+        root, text="", command=lambda: None, state=tk.DISABLED, takefocus=False)  # Initially disable choice buttons
     choice_buttons.append(button)
     button.pack()
 
 # Create a label to display the result
-result_label = tk.Label(root, text="")
+result_label = ttk.Label(root, text="")
 result_label.pack()
 
 # Start the game with the first question
